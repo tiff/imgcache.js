@@ -114,8 +114,6 @@ var ImgCache = {
 		if (!Private.isImgCacheLoaded() || !img_src)
 			return;
 
-		img_src = Helpers.sanitizeURI(img_src);
-			
 		var filePath = Private.getCachedFileFullPath(img_src);
 
 		var fileTransfer = new Private.FileTransferWrapper(ImgCache.attributes.filesystem);
@@ -169,8 +167,6 @@ var ImgCache = {
 		if (!Private.isImgCacheLoaded() || !response_callback)
 			return;
 
-		img_src = Helpers.sanitizeURI(img_src);
-			
 		var path = Private.getCachedFilePath(img_src);
 		if (Private.isCordovaAndroid()) {
 			// This hack is probably only used for older versions of Cordova
@@ -221,8 +217,6 @@ var ImgCache = {
 		if (!Private.isImgCacheLoaded())
 			return;
 	
-		var img_url = Helpers.sanitizeURI(img_url);
-	
 		Private.loadCachedFile($img, image_url, Private.setNewImgPath, success_callback, fail_callback);
 	}
 
@@ -248,9 +242,6 @@ var ImgCache = {
 	};
 
 	ImgCache.removeFile = function(img_src, success_callback, error_callback) {
-
-		img_src = Helpers.sanitizeURI(img_src);
-	
 		var filePath = Private.getCachedFilePath(img_src);
 		var _fail = function(error) {
 			Helpers.logging('Failed to remove file due to ' + error.code, LOG_LEVEL_ERROR);
@@ -585,18 +576,6 @@ var ImgCache = {
 				console.log(str);
 			}
 		}
-	};
-	
-	// make sure the url does not contain funny characters like spaces that might make the download fail
-	Helpers.sanitizeURI = function(uri) {
-		var encodedURI = encodeURI(uri);
-		/*
-		TODO: The following bit of code will have to be checked first (#30)
-		if (Private.isCordova()) {
-			return encodedURI.replace(/%/g, '%25');
-		}
-		*/
-		return encodedURI;
 	};
 	
 	// with a little help from http://code.google.com/p/js-uri/

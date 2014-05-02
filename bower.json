@@ -1,16 +1,20 @@
 {
-  "name": "imgcache.js",
-  "version": "0.7.0",
-  "homepage": "https://github.com/chrisben/imgcache.js",
+  "name": "tiff-imgcache.js",
+  "version": "0.7.2",
+  "homepage": "https://github.com/tiff/imgcache.js",
   "authors": [
 	{
 		"name": "Christophe Benoit",
 		"homepage": "http://www.wobis.fr"
+	},
+	{
+		"name": "Christopher Blum",
+		"homepage": "https://twitter.com/ChristopherBlum"
 	}
   ],
   "repository": {
 	"type": "git",
-	"url": "git://github.com/chrisben/imgcache.js.git"
+	"url": "git://github.com/tiff/imgcache.js.git"
   },
   "description": "JS library that stores images locally for offline apps using PhoneGap/Cordova or browsers supporting the new html5 File API",
   "main": "js/imgcache.js",

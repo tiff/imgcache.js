@@ -242,6 +242,7 @@ var ImgCache = {
 	};
 
 	ImgCache.removeFile = function(img_src, success_callback, error_callback) {
+
 		var filePath = Private.getCachedFilePath(img_src);
 		var _fail = function(error) {
 			Helpers.logging('Failed to remove file due to ' + error.code, LOG_LEVEL_ERROR);
@@ -285,13 +286,16 @@ var ImgCache = {
 			return;
 		}
 
-		var _setBackgroundImagePath = function($element, new_src, old_src) {
-			DomHelpers.setBackgroundImage($element, 'url("' + new_src + '")');
-			// store previous url in case we need to reload it
-			DomHelpers.setAttribute($element, OLD_BACKGROUND_ATTR, old_src);
-		};
+		Private.loadCachedFile($div, img_src, Private.setNewBackgroundImgPath, success_callback, fail_callback);
+	}
 
-		Private.loadCachedFile($div, img_src, _setBackgroundImagePath, success_callback, fail_callback);
+
+	ImgCache.useCachedBackgroundWithSource = function($div, image_url, success_callback, fail_callback) {
+
+		if (!Private.isImgCacheLoaded())
+			return;
+
+		Private.loadCachedFile($div, image_url, Private.setNewBackgroundImgPath, success_callback, fail_callback);
 	}
 
 
@@ -393,6 +397,12 @@ var ImgCache = {
 		DomHelpers.setAttribute($img, OLD_SRC_ATTR, old_src);
 	};
 
+	Private.setNewBackgroundImgPath = function($element, new_src, old_src) {
+		DomHelpers.setBackgroundImage($element, 'url("' + new_src + '")');
+		// store previous url in case we need to reload it
+		DomHelpers.setAttribute($element, OLD_BACKGROUND_ATTR, old_src);
+	};
+
 	Private.createCacheDir = function(callback) {
 		if (!ImgCache.attributes.filesystem)
 			return;
@@ -421,7 +431,7 @@ var ImgCache = {
 			ImgCache.ready = true;
 			DomHelpers.trigger(document, IMGCACHE_READY_TRIGGERED_EVENT);
 		};
-		ImgCache.attributes.filesystem.root.getDirectory(ImgCache.options.localCacheFolder, {create: true, exclusive: false}, _getDirSuccess, _fail);	
+		ImgCache.attributes.filesystem.root.getDirectory(ImgCache.options.localCacheFolder, {create: true, exclusive: false}, _getDirSuccess, _fail);
 	};
 
 	// This is a wrapper for phonegap's FileTransfer object in order to implement the same feature

@@ -15,7 +15,7 @@
 */
 
 var ImgCache = {
-	version: '0.7.1',
+	version: '0.7.4',
 	// options to override before using the library (but after loading this script!)
 	options: {
 		debug: false,								/* write log (to console)? */

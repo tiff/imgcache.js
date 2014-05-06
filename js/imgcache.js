@@ -333,7 +333,7 @@ var ImgCache = {
 	};
 	
 	Private.isCordovaAndroid = function() {
-		return (Private.isCordova() && device && device.platform && device.platform.indexOf('android') >= 0);
+		return (Private.isCordova() && device && device.platform && device.platform.toLowerCase().indexOf('android') >= 0);
 	};
 
 	Private.isImgCacheLoaded = function() {

@@ -15,7 +15,7 @@
 */
 
 var ImgCache = {
-	version: '0.7.4',
+	version: '0.7.5',
 	// options to override before using the library (but after loading this script!)
 	options: {
 		debug: false,								/* write log (to console)? */
@@ -552,7 +552,7 @@ var ImgCache = {
 				var new_url = Private.getFileEntryURL(entry);
 				set_path_callback($element, new_url, img_src);
 				Helpers.logging('File ' + filename + ' loaded from cache', LOG_LEVEL_INFO);
-				if (success_callback) success_callback($element);
+				if (success_callback) success_callback($element, new_url);
 			}
 		};
 		// if file does not exist in cache, cache it now!
